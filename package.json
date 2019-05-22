@@ -1,0 +1,30 @@
+{
+  "name": "xiv-bestiary",
+  "version": "1.0.0",
+  "description": "Bestiary for FFXIV",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node index.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "keywords": [],
+  "author": "Tou Saanya",
+  "license": "ISC",
+  "dependencies": {
+    "archetype-js": "0.6.1",
+    "body-parser": "^1.19.0",
+    "co": "4.6.0",
+    "express": "^4.17.0",
+    "mongoose": "^5.5.9",
+    "next": "^8.1.0",
+    "npm": "^6.9.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "superagent": "3.5.2"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {}
+}
