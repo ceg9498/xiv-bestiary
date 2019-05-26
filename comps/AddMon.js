@@ -1,31 +1,39 @@
-export default function AddMon(props) {
+import React, { Component } from 'react'
+
+export default class AddMon extends Component {
+  constructor(props) {
+    super(props)
+  }
+  render(){
+    const formData = this.props.formData
+    const inst = this.props.inst
     return(
         <div>
-          <form onSubmit={props.inst.Add()}>
+          <form onSubmit={inst.Add()}>
             <input
               type="text"
-              onChange={props.inst.SetForm('webname')}
-              value={props.formData.webname}
+              onChange={inst.SetForm('webname')}
+              value={formData.webname}
               placeholder="Webname" />
               <br/>
             <input
               type="text"
-              onChange={props.inst.SetForm('name')}
-              value={props.formData.name}
+              onChange={inst.SetForm('name')}
+              value={formData.name}
               placeholder="Name" />
               <br/>
             <input
               type="text"
-              onChange={props.inst.SetForm('type')}
-              value={props.formData.type}
+              onChange={inst.SetForm('type')}
+              value={formData.type}
               placeholder="Monster Type" />
               <br/>
             <input className="checkbox"
               type="checkbox"
-              onChange={props.inst.SetForm('aggro')}
-              value={props.formData.aggro} /><span>Aggressive?</span>
+              onChange={inst.SetForm('aggro')}
+              value={formData.aggro} /><span>Aggressive?</span>
               <br/>
-            <select name='rarity' onChange={props.inst.SetForm('rarity')}>
+            <select name='rarity' onChange={inst.SetForm('rarity')}>
                 <option value='' defaultValue>Monster Rarity</option>
                 <option value='Common'>Common</option>
                 <option value='Uncommon'>Uncommon</option>
@@ -38,11 +46,11 @@ export default function AddMon(props) {
               <br/>
             <input
               type="text"
-              onChange={props.inst.SetForm('hp')}
-              value={props.formData.hp}
+              onChange={inst.SetForm('hp')}
+              value={formData.hp}
               placeholder="HP Value" />
               <br/>
-            <button type="submit" disabled={props.inst.IsFormInvalid()}>Add</button>
+            <button type="submit" disabled={inst.IsFormInvalid()}>Add</button>
           </form>
           <style jsx>{`
             div {
@@ -87,4 +95,5 @@ export default function AddMon(props) {
           `}</style>
         </div>
     )
+  }
 }

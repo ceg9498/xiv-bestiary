@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import Link from 'next/link'
 
 const linkStyle = {
@@ -11,7 +12,11 @@ const hStyle = {
     fontFamily: 'Arial, Sans-serif'
 }
 
-export default function Header() {
+export default class Header extends Component {
+    constructor() {
+      super()
+    }
+    render(){
     return(
         <div>
             <h1 style={hStyle}>FFXIV Bestiary</h1>
@@ -32,4 +37,5 @@ export default function Header() {
             </span>
         </div>
     )
+}
 }

@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import Header from "./Header.js"
 
 const layoutStyle = {
@@ -11,14 +12,19 @@ const hStyle = {
     fontFamily: 'Arial, Sans-serif'
 }
 
-export default function Layout(props) {
+export default class Layout extends Component {
+    constructor(props){
+        super(props)
+    }
+    render(){
     return(
         <div style={layoutStyle}>
             <Header />
             <div>
-                <h3 style={hStyle}>{props.title}</h3>
+                <h3 style={hStyle}>{this.props.title}</h3>
             </div>
-            {props.children}
+            {this.props.children}
         </div>
     )
+}
 }

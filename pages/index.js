@@ -1,8 +1,8 @@
 import Layout from "../comps/_Layout.js"
-import React from 'react'
 import * as superagent from 'superagent'
 import FormActions from '../comps/FormActions.js'
 import AddMon from "../comps/AddMon.js";
+import MonList from "../comps/MonList.js"
 
 export default class extends FormActions {
   static async getInitialProps ({ req }) {
@@ -28,40 +28,16 @@ export default class extends FormActions {
     const list = this.state.list || this.props.list
     const { formData } = this.state
     return (
-      <Layout id='container' title="Welcome!">
-        <h1>
-          New Monster
-        </h1>
-          <AddMon formData={formData} inst={this} />
+      <Layout id='container' title="Welcome!" list={list} formData={formData} inst={this}>
+        <p>This is the index/home page. </p>
+        <p>Some form of content is still needed - perhaps just a list of the newest or most frequently viewed pages?</p>
 
-        <h1>
-          Monster List
-        </h1>
-        <div id="monster-list">
-          <ul>
-            {
-              list.map(mon => (
-                <div key={mon._id}>
-                  <span className="edit" aria-label="Edit Monster">
-                    ✏️
-                  </span>&nbsp;
-                  <span className="remove" onClick={this.Remove(mon._id)} aria-label="Delete Monster">
-                    &times;
-                  </span>&nbsp;
-                  <span className="description">
-                    {mon.name}: This {mon.rarity} {mon.type} {this.CheckAggro(mon.aggro)} (<i>{mon.webname}</i>)
-                  </span>
-                </div>
-              ))
-            }
-          </ul>
-        </div>
         <style jsx>{`
           div {
-            font-family: 'Helvetica', 'sans-serif';
+            font-family: 'Bookman', 'Helvetica', 'sans-serif';
           }
           h1 {
-            color: #ccbc1d;
+            color: #6530b5;
           }
           .description {
             position: relative;
