@@ -5,7 +5,6 @@ export default class MonList extends Component {
     super(props)
   }
   render(){
-    console.log(this.props)
     const list = this.props.list
     const inst = this.props.inst
     return(

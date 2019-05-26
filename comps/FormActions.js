@@ -41,9 +41,14 @@ export default class extends React.Component {
         const state = this.state || {}
         const formData = state.formData || {}
         this.setState(Object.assign({}, this.state, {
-        formData: { webname: '', name: '', type: '', hp: '' }
+            formData: { webname: '', name: '', type: '', hp: '' }
         }))
         ev.target.reset()
+        if(formData.aggro){
+            // do nothing if it's true
+        } else {
+            formData.aggro = false;
+        }
 
         superagent.post('http://localhost:3000/api', formData)
         .then(res => {
