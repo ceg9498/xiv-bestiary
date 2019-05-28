@@ -64,9 +64,9 @@ export default class extends React.Component {
 
     CheckAggro (aggro) {
     if(Boolean(aggro)){
-        return " is aggressive."
+        return "Yes"
     } else {
-        return " is not aggressive."
+        return "No"
     }
     }
 }

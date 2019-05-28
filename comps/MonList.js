@@ -9,31 +9,68 @@ export default class MonList extends Component {
     const inst = this.props.inst
     return(
         <div id="monster-list">
-          <ul>
+          <table cellpadding="5">
+            <tr>
+              <th>
+                {/* Edit */}
+              </th>
+              <th>
+                {/* Delete */}
+              </th>
+              <th>
+                Monster Name
+              </th>
+              <th>
+                Rarity
+              </th>
+              <th>
+                Monster Type
+              </th>
+              <th>
+                Aggressive
+              </th>
+            </tr>
           {
             list.map(mon => (
-              <div key={mon._id}>
-                <span className="edit" aria-label="Edit Monster">
+              <tr key={mon._id}>
+                <td className="edit" aria-label="Edit Monster">
                   ✏️
-                </span>&nbsp;
-                <span className="remove" onClick={inst.Remove(mon._id)} aria-label="Delete Monster">
+                </td>
+                <td className="remove" onClick={inst.Remove(mon._id)} aria-label="Delete Monster">
                   &times;
-                </span>&nbsp;
-                <span className="description">
-                  {mon.name}: This {mon.rarity} {mon.type} {inst.CheckAggro(mon.aggro)} (<i>{mon.webname}</i>)
-                </span>
-              </div>
+                </td>
+                <td className="description">
+                  {mon.name}<br />
+                  <i>{mon.webname}</i>
+                </td>
+                <td className="description">
+                  {mon.rarity}
+                </td>
+                <td>
+                  {mon.type}
+                </td>
+                <td>
+                  {inst.CheckAggro(mon.aggro)}
+                </td>
+              </tr>
             ))
           }
-            </ul>
+            </table>
             <style jsx>{`
           div {
             font-family: 'Helvetica', 'sans-serif';
           }
+          table {
+            border-radius: 5px;
+          }
+          tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          tr:nth-child(odd) {
+            background-color: #e2f2ff;
+          }
           #monster-list {
             width: 800px;
-            border: 1px solid #DDD;
-            border-radius: 5px;
           }
           .remove {
             cursor: pointer;
@@ -42,6 +79,9 @@ export default class MonList extends Component {
           }
           .edit {
             font-size: 1em;
+          }
+          .description {
+
           }
         `}</style>
         </div>
