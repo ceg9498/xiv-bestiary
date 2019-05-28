@@ -7,9 +7,16 @@ export default class MonList extends Component {
   render(){
     const list = this.props.list
     const inst = this.props.inst
+    console.log("MonList",list)
+    if(!list){
+        return(
+            <></>
+        )
+    }
     return(
         <div id="monster-list">
-          <table cellpadding="5">
+          <table cellPadding="5">
+            <tbody>
             <tr>
               <th>
                 {/* Edit */}
@@ -46,15 +53,16 @@ export default class MonList extends Component {
                 <td className="description">
                   {mon.rarity}
                 </td>
-                <td>
+                <td className="description">
                   {mon.type}
                 </td>
-                <td>
+                <td className="description">
                   {inst.CheckAggro(mon.aggro)}
                 </td>
               </tr>
             ))
           }
+          </tbody>
             </table>
             <style jsx>{`
           div {

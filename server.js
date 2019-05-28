@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const api = require('./lib/api')
 const bodyParser = require('body-parser')
 const co = require('co')
+const cors = require('cors')
 const express = require('express')
 const next = require('next')
 
@@ -44,6 +45,10 @@ co(function * () {
         req.db = db
         next()
     })
+
+    // Use CORS
+    app.use(cors())
+
     // this line tells the whole app to use the server routing in the API, and also gives the db to the API
     app.use('/api', api(db))
 
