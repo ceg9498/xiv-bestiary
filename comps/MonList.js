@@ -1,9 +1,22 @@
 import React, { Component } from 'react'
+import Link from 'next/link'
+
+const linkStyle = {
+  color: 'black',
+  fontFamily: 'Arial, Sans-serif'
+}
+
+const MonLink = props => (
+  <Link href={`/mon?webname=${props.webname}`} as={`/m/${props.webname}`}>
+    <a style={linkStyle}>{props.name}</a>
+  </Link>
+)
 
 export default class MonList extends Component {
   constructor(props) {
     super(props)
   }
+
   render(){
     const list = this.props.list
     const inst = this.props.inst
@@ -47,8 +60,7 @@ export default class MonList extends Component {
                   &times;
                 </td>
                 <td className="description">
-                  {mon.name}<br />
-                  <i>{mon.webname}</i>
+                  <MonLink webname={mon.webname} name={mon.name} />
                 </td>
                 <td className="description">
                   {mon.rarity}
@@ -76,6 +88,10 @@ export default class MonList extends Component {
           }
           tr:nth-child(odd) {
             background-color: #e2f2ff;
+          }
+          a:link {
+            text-decoration: none;
+            color: black;
           }
           #monster-list {
             width: 800px;
