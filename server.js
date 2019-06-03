@@ -9,17 +9,17 @@ const express = require('express')
 const next = require('next')
 
 const dev = process.env.NODE_DEV !== 'production' // true false
-const nextApp = next({ dev })
-const handle = nextApp.getRequestHandler() // part of next config
+const app = next({ dev })
+const handle = app.getRequestHandler() // part of next config
 
 const myLogin = require('./login.js')
 const dbRoute = 'mongodb://' + myLogin.login + 'ds121382.mlab.com:21382/ffxiv-bestiary'
 const PORT = process.env.PORT || 3000
 
 // Don't worry about co for now! It does magic that makes things cleaner and smoother.
-// Instead pay attention to the things it's wrapped around.
+// Instead pay attention to the things it's wrservered around.
 co(function * () {
-    yield nextApp.prepare()
+    yield app.prepare()
 
     console.log(`Connecting to db...`)
 
@@ -37,27 +37,33 @@ co(function * () {
     db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
     // Create and set up the Express Server
-    const app = express()
-    app.use(bodyParser.json());
+    const server = express()
+    server.use(bodyParser.json());
 
-    app.use((req, res, next) => {
+    server.use((req, res, next) => {
     // Expose the MongoDB database handle so Next.js can access it.
         req.db = db
         next()
     })
 
     // Use CORS
-    app.use(cors())
+    server.use(cors())
 
-    // this line tells the whole app to use the server routing in the API, and also gives the db to the API
-    app.use('/api', api(db))
+    // this line tells the whole server to use the server routing in the API, and also gives the db to the API
+    server.use('/api', api(db))
 
-    // entry point for Next.js app
-    app.get('*', (req, res) => {
+    // routing point for monster detail pages
+    server.get('/m/:webname', (req, res) => {
+        // server.use('/api', api(req.params.webname))
+        return app.render(req, res, '/monsters/mon', { webname: req.params.webname })
+    })
+
+    // entry point for Next.js server
+    server.get('*', (req, res) => {
         return handle(req, res) 
     })
 
     // server waits for activity on the specified PORT
-    app.listen(PORT)
+    server.listen(PORT)
     console.log(`Listening on http://localhost:${PORT}`)
 }).catch(error => console.error(error.stack))

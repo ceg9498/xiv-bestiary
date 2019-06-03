@@ -6,10 +6,9 @@ export default class extends React.Component {
         return ev => {
             const state = this.state || {}
             const formData = state.formData || {}
-            const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
             this.setState(Object.assign({}, state, {
                 formData: Object.assign({}, formData, {
-                    [prop]: value
+                    [prop]: ev.target.value
                 })
             }));
         }
@@ -41,14 +40,10 @@ export default class extends React.Component {
         const state = this.state || {}
         const formData = state.formData || {}
         this.setState(Object.assign({}, this.state, {
-            formData: { webname: '', name: '', type: '', hp: '' }
+            formData: { webname: '', name: '', level: '', type: '', hp: '', aggro: '' }
         }))
+        console.log("formdata to submit: ", formData)
         ev.target.reset()
-        if(formData.aggro){
-            // do nothing if it's true
-        } else {
-            formData.aggro = false;
-        }
 
         superagent.post('http://localhost:3000/api', formData)
         .then(res => {

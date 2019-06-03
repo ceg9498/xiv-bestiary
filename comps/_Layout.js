@@ -1,15 +1,10 @@
 import React, { Component } from 'react'
 import Header from "./Header.js"
 
-const layoutStyle = {
-    margin: 20,
-    padding: 20,
-    border: '1px solid #DDD'
-}
-
-const hStyle = {
-    textDecoration: 'none',
-    fontFamily: 'Arial, Sans-serif'
+const bodyDiv = {
+    margin: 'auto',
+    width: '1000px',
+    overflow: 'auto'
 }
 
 export default class Layout extends Component {
@@ -18,12 +13,11 @@ export default class Layout extends Component {
     }
     render(){
     return(
-        <div style={layoutStyle}>
+        <div>
             <Header />
-            <div>
-                <h3 style={hStyle}>{this.props.title}</h3>
+            <div style={bodyDiv}>
+                    {this.props.children}
             </div>
-            {this.props.children}
         </div>
     )
 }

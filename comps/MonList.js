@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
+import * as superagent from 'superagent'
 
 const linkStyle = {
   color: 'black',
@@ -7,20 +8,20 @@ const linkStyle = {
 }
 
 const MonLink = props => (
-  <Link href={`/mon?webname=${props.webname}`} as={`/m/${props.webname}`}>
-    <a style={linkStyle}>{props.name}</a>
+  <Link href={`/monsters/mon?webname=${props.mon.webname}`} as={`/m/${props.mon.webname}`}>
+    <a style={linkStyle}>{props.mon.name}</a>
   </Link>
 )
 
 export default class MonList extends Component {
   constructor(props) {
     super(props)
+    this.state = { formData: { name: '', webname: '', type: '', hp: '' } }
   }
 
   render(){
-    const list = this.props.list
-    const inst = this.props.inst
-    console.log("MonList",list)
+    const list = this.props.list || this.state.list
+    const inst = this.props.inst || this.state.inst
     if(!list){
         return(
             <></>
@@ -60,7 +61,7 @@ export default class MonList extends Component {
                   &times;
                 </td>
                 <td className="description">
-                  <MonLink webname={mon.webname} name={mon.name} />
+                  <MonLink mon={mon} />
                 </td>
                 <td className="description">
                   {mon.rarity}
@@ -81,13 +82,20 @@ export default class MonList extends Component {
             font-family: 'Helvetica', 'sans-serif';
           }
           table {
-            border-radius: 5px;
+            border-collapse: collapse;
+            border: 3px solid #ccccff;
+          }
+          th {
+            background-color: #ccccff;
           }
           tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #ffffff;
           }
           tr:nth-child(odd) {
-            background-color: #e2f2ff;
+            background-color: #e6e6ff;
+          }
+          tr:hover {
+            background-color: #ccccff;
           }
           a:link {
             text-decoration: none;
@@ -95,6 +103,8 @@ export default class MonList extends Component {
           }
           #monster-list {
             width: 800px;
+            margin-left: auto;
+            margin-right: auto;
           }
           .remove {
             cursor: pointer;
