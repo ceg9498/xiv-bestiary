@@ -3,7 +3,20 @@ import MonHeader from '../../comps/MonHeader.js'
 import Sidebar from '../../comps/Sidebar.js'
 import Content from '../../comps/SplitContent.js'
 import FormActions from '../../comps/FormActions.js'
+import { SideHeader, MainHeader } from '../../comps/SubHeader.js'
+
 import fetch from 'isomorphic-unfetch'
+
+const Icon = {
+    hlIcon: '/static/ContentIcons/Hunt_Log_Icon.png',
+    hbIcon: '/static/ContentIcons/Hunt_Bill_Icon.png',
+    fateIcon: '/static/ContentIcons/Fate_Icon.png',
+    atmaIcon: '/static/ContentIcons/Atma_Book_Icon.png'
+}
+
+const pStyle = {
+    marginTop: '6px'
+}
 
 export default class extends FormActions {
 
@@ -13,25 +26,21 @@ export default class extends FormActions {
     }
 
     static async getInitialProps ({ query }) {
-        const webname = query.webname
-        return { webname }
+        const id = query.id
+        return { id }
     }
 
     componentDidMount() {
-        this.getDataFromDb();
+        this.getMon();
     }
-
-    async getDataFromDb() {
-        const res = await fetch('http://localhost:3000/api')
-        const data = await res.json()
-        let monster = ''
-        for(var i = 0; i < data.length; i++){
-            if(data[i].webname === this.props.webname){
-                monster = data[i]
-            }
-        }
-        //console.log('getData\'s monster', monster)
-        this.setState({monster: monster})
+    
+    getMon = () => {
+        fetch(`http://localhost:3000/api/${this.props.id}`)
+            .then(response => response.json())
+            .then(response => this.setState({ monster: response.data }) )
+            .catch((error) => {
+                console.log(`Error in getting Monster ID ${this.props.id}: ${error}`)
+            })
     };
 
     render(){
@@ -44,14 +53,25 @@ export default class extends FormActions {
         }
         return (
             <Layout>
-                <MonHeader title={monster.name} image="/static/monIcon_generic.png" aggro={monster.aggro} />
+                <MonHeader name={monster.name} hasIcon={false} aggro={monster.aggro} patch={monster.version} />
                 <Sidebar>
-                    <span>Level: {monster.level}</span>
+                    <span>Level: {monster.level}</span><br/>
+                    <SideHeader title="Hunting Log" icon={Icon.hlIcon} />
+                    <p style={pStyle}>This section should only display for monsters that are in the Hunting Log.</p>
+                    <SideHeader title="The Hunt" icon={Icon.hbIcon} />
+                    <p style={pStyle}>This section should only display if the monster is a mark for The Hunt.</p>
                 </Sidebar>
                 <Content>
-                    <span>{monster.type}</span><br/>
-                    <span>{monster.rarity}</span><br/>
-                    <span>{monster.hp}</span><br/>
+                    <MainHeader title="Details" />
+                    <span>Type: {monster.type}</span><br/>
+                    <span>Rarity: {monster.rarity}</span><br/>
+                    <span>HP: {monster.hp}</span><br/>
+                    <MainHeader title="Location" />
+                    <span>Some Map Somewhere, I'm Sure.</span>
+                    <MainHeader title="See Also" />
+                    <p style={pStyle}>This section should link related pages, 
+                    such as a listing of monsters of the same type, a page that displays 
+                    related targets for Hunting Logs, etc.</p>
                 </Content>
             </Layout>
         )

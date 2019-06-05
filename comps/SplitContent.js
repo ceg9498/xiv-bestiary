@@ -5,11 +5,10 @@ const mainContent = {
     borderRadius: '10px',
     backgroundColor: '#ccccff',
     margin: '5px',
-    width: '1000px',
-    padding: '10px',
+    padding: '20px',
     height: 'auto',
     overflow: 'auto',
-    width: '800px',
+    width: '780px',
     float: 'right'
 }
 

@@ -96,11 +96,6 @@ export default class Header extends Component {
                         </Link>
                     </span>
                     <span style={linkDivider}>
-                        <Link href="/monsters/add">
-                            <a style={linkStyle}>Add a Monster</a>
-                        </Link>
-                    </span>
-                    <span style={linkDivider}>
                         <Link href="/about">
                             <a style={linkStyle}>About</a>
                         </Link>

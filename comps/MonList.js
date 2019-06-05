@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
-import * as superagent from 'superagent'
 
 const linkStyle = {
   color: 'black',
@@ -8,10 +7,19 @@ const linkStyle = {
 }
 
 const MonLink = props => (
-  <Link href={`/monsters/mon?webname=${props.mon.webname}`} as={`/m/${props.mon.webname}`}>
-    <a style={linkStyle}>{props.mon.name}</a>
+  <Link href={`/m/${props.mon.id}`}>
+    <a style={linkStyle}>{ToUpper(props.mon.name)}</a>
   </Link>
 )
+
+const ToUpper = temp => {
+    // Format the monster's name to use a capital for the first letter
+    // FUTURE: determine which letters to capitalize based on spaces(?)
+    let name = temp
+    name = name.charAt(0).toUpperCase() + name.slice(1)
+
+    return name
+}
 
 export default class MonList extends Component {
   constructor(props) {
@@ -20,57 +28,34 @@ export default class MonList extends Component {
   }
 
   render(){
-    const list = this.props.list || this.state.list
-    const inst = this.props.inst || this.state.inst
+    const list = this.props.list
+
     if(!list){
         return(
             <></>
         )
     }
+
     return(
         <div id="monster-list">
           <table cellPadding="5">
             <tbody>
             <tr>
               <th>
-                {/* Edit */}
-              </th>
-              <th>
-                {/* Delete */}
+                ID
               </th>
               <th>
                 Monster Name
               </th>
-              <th>
-                Rarity
-              </th>
-              <th>
-                Monster Type
-              </th>
-              <th>
-                Aggressive
-              </th>
             </tr>
           {
             list.map(mon => (
-              <tr key={mon._id}>
-                <td className="edit" aria-label="Edit Monster">
-                  ✏️
-                </td>
-                <td className="remove" onClick={inst.Remove(mon._id)} aria-label="Delete Monster">
-                  &times;
+              <tr key={mon.id}>
+                <td className="description">
+                  {mon.id}
                 </td>
                 <td className="description">
                   <MonLink mon={mon} />
-                </td>
-                <td className="description">
-                  {mon.rarity}
-                </td>
-                <td className="description">
-                  {mon.type}
-                </td>
-                <td className="description">
-                  {inst.CheckAggro(mon.aggro)}
                 </td>
               </tr>
             ))

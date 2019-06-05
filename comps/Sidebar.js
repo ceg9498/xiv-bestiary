@@ -23,7 +23,6 @@ export default class Sidebar extends Component {
     render(){
         return(
             <div style={quickInfoBox}>
-                <h4 style={h4style}>Sidebar</h4>
                 {this.props.children}
             </div>
         )
