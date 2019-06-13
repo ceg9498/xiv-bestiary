@@ -14,13 +14,19 @@ const linkStyle = {
 
 const Pages = props => (
     <div>
+        {props.pagination.Page > 1 &&
         <Link href={`/monsters?page=${props.pagination.PagePrev}`}>
-            <a style={linkStyle} >Previous Page</a>
+            <a style={linkStyle}>Previous Page</a>
         </Link>
+        }
+
         <span style={linkStyle}>{props.pagination.Page}</span>
+
+        {props.pagination.Page < props.pagination.PageTotal &&
         <Link href={`/monsters?page=${props.pagination.PageNext}`}>
-            <a style={linkStyle} >Next Page</a>
+            <a style={linkStyle}>Next Page</a>
         </Link>
+        }
     </div>
 )
 
@@ -40,10 +46,19 @@ export default class extends FormActions {
         this.getList()
     }
 
+    componentDidUpdate(prevProps) {
+        if(this.props.page !== prevProps.page){
+            this.getList();
+        }
+    }
+
     getList = () => {
         fetch(`http://localhost:3000/api/list/${this.props.page}`)
             .then(response => response.json())
-            .then(res => this.setState({ list: res.data, pagination: res.pagination }) )
+            .then(res => this.setState({
+                list: res.data,
+                pagination: res.pagination
+            }) )
             .catch((error) => {
                 console.log(`Error in Get List: ${error}`)
             })
@@ -60,15 +75,6 @@ export default class extends FormActions {
         return (
             <Layout>
               <Content>
-                  {/*
-                    The pagination feature currently does not work.
-                    It is something that I intend to look into in the FUTURE,
-                    and come back to with regards to this project.
-
-                    In the meantime, if you wish to use this and see a different page,
-                    simply put a URL in your browser with the appropriate number.
-                    EXAMPLE: `localhost:3000/monsters?page=6` will display page 6 of results.
-                  */}
                 <Pages pagination={this.state.pagination} />
                 <MonList list={list} inst={this} />
               </Content>

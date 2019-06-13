@@ -49,7 +49,7 @@ export default class MonList extends Component {
               </th>
             </tr>
           {
-            list.map(mon => (
+            list.map(mon => 
               <tr key={mon.id}>
                 <td className="description">
                   {mon.id}
@@ -58,7 +58,7 @@ export default class MonList extends Component {
                   <MonLink mon={mon} />
                 </td>
               </tr>
-            ))
+            )
           }
           </tbody>
             </table>

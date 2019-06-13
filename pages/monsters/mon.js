@@ -37,7 +37,7 @@ export default class extends FormActions {
     getMon = () => {
         fetch(`http://localhost:3000/api/${this.props.id}`)
             .then(response => response.json())
-            .then(response => this.setState({ monster: response.data }) )
+            .then(response => { this.setState({ monster: response.data }) })
             .catch((error) => {
                 console.log(`Error in getting Monster ID ${this.props.id}: ${error}`)
             })
@@ -62,16 +62,27 @@ export default class extends FormActions {
                     <p style={pStyle}>This section should only display if the monster is a mark for The Hunt.</p>
                 </Sidebar>
                 <Content>
-                    <MainHeader title="Details" />
-                    <span>Type: {monster.type}</span><br/>
-                    <span>Rarity: {monster.rarity}</span><br/>
-                    <span>HP: {monster.hp}</span><br/>
-                    <MainHeader title="Location" />
-                    <span>Some Map Somewhere, I'm Sure.</span>
-                    <MainHeader title="See Also" />
-                    <p style={pStyle}>This section should link related pages, 
-                    such as a listing of monsters of the same type, a page that displays 
-                    related targets for Hunting Logs, etc.</p>
+                    {monster.name === "Not found" ?
+                        <>
+                        <MainHeader title="Error" />
+                        <span>Monster not found.</span>
+                        </>
+                    :
+                        <>
+                        <MainHeader title="Details" />
+                        <span>Type: {monster.type}</span><br/>
+                        <span>Rarity: {monster.rarity}</span><br/>
+                        <span>HP: {monster.hp}</span><br/>
+                            
+                        <MainHeader title="Location" />
+                        <span>Some Map Somewhere, I'm Sure.</span>
+                        
+                        <MainHeader title="See Also" />
+                        <p style={pStyle}>This section should link related pages, 
+                        such as a listing of monsters of the same type, a page that displays 
+                        related targets for Hunting Logs, etc.</p>
+                        </>
+                    }
                 </Content>
             </Layout>
         )
