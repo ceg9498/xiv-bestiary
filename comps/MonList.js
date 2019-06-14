@@ -37,9 +37,9 @@ export default class MonList extends Component {
     }
 
     return(
-        <div id="monster-list">
-          <table cellPadding="5">
-            <tbody>
+      <div id="monster-list">
+        <table cellPadding="5">
+          <thead>
             <tr>
               <th>
                 ID
@@ -48,6 +48,8 @@ export default class MonList extends Component {
                 Monster Name
               </th>
             </tr>
+          </thead>
+          <tbody>
           {
             list.map(mon => 
               <tr key={mon.id}>
@@ -61,8 +63,8 @@ export default class MonList extends Component {
             )
           }
           </tbody>
-            </table>
-            <style jsx>{`
+        </table>
+        <style jsx>{`
           div {
             font-family: 'Helvetica', 'sans-serif';
           }
@@ -70,8 +72,16 @@ export default class MonList extends Component {
             border-collapse: collapse;
             border: 3px solid #ccccff;
           }
+          thead {
+            display: block;
+          }
           th {
             background-color: #ccccff;
+          }
+          tbody {
+            display: block;
+            height: 600px;
+            overflow: auto;
           }
           tr:nth-child(even) {
             background-color: #ffffff;
@@ -103,7 +113,7 @@ export default class MonList extends Component {
 
           }
         `}</style>
-        </div>
+      </div>
     )
   }
 }
