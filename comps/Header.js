@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import Link from 'next/link'
 
+// colors:
+// nav bg (lav) '#ccccff'
+// head bg (dk purp) '#333399'
+// highlights/accents: white
+
 const header = {
     backgroundColor: '#333399',
     margin: '0px',
@@ -27,51 +32,39 @@ const h1Style = {
 }
 
 const navBar = {
-    backgroundColor: '#ccccff',
-    fontSize: '18px',
-    borderStyle: 'solid none solid none',
-    borderWidth: '2px 0px 3px 0px',
-    borderColor: 'white white #333399 white',
-    height: '30px',
-    overflow: 'auto',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignContent: 'center'
+    borderStyle: 'none solid solid solid',
+    borderColor: '#333399',
+    borderWidth: '2px',
+    backgroundColor: "#ccccff",
+    height: '36px'
 }
 
-const linkArea = {
-    borderStyle: 'none none none solid',
-    borderWidth: '2px',
-    borderColor: 'white',
-    height: '30px',
-    width: '1000px',
-    margin: 'auto',
-    overflow: 'auto',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignContent: 'center'
+const linkList = {
+    display: "inline-block",
+    borderTop: "solid 2px white",
+    listStyle: 'none',
+    margin: '0',
+    padding: '0',
+    width: '100%'
 }
 
-const linkDivider = {
-    height: '30px',
-    borderStyle: 'none solid none none',
-    borderWidth: '2px',
-    borderColor: 'white',
-    overflow: 'auto',
-    display: 'flex',
-    flexWrap: 'wrap',
-    alignContent: 'center'
+const listItem = {
+    float: 'left',
 }
 
 const linkStyle = {
-    marginLeft: '20px',
-    marginRight: '40px',
-    marginTop: 'auto',
-    marginBottom: 'auto',
     textDecoration: 'none',
     fontFamily: 'Arial, Sans-serif',
-    color: 'black'
-  }
+    color: 'black',
+    fontWeight: 'bold',
+    backgroundColor: "#ccccff",
+    display: "block",
+    borderRight: 'solid 2px white',
+    padding: '8px',
+    width: '120px',
+    textAlign: 'center',
+    height: '100%'
+}
 
 export default class Header extends Component {
     constructor() {
@@ -83,25 +76,25 @@ export default class Header extends Component {
             <div style={banner}>
                 <h1 style={h1Style}>FFXIV Bestiary</h1>
             </div>
-            <div style={navBar}>
-                <div style={linkArea}>
-                    <span style={linkDivider}>
-                        <Link href="/index">
-                            <a style={linkStyle}>Home</a>
-                        </Link>
-                    </span>
-                    <span style={linkDivider}>
-                        <Link href="/monsters">
-                            <a style={linkStyle}>Monsters</a>
-                        </Link>
-                    </span>
-                    <span style={linkDivider}>
-                        <Link href="/about">
-                            <a style={linkStyle}>About</a>
-                        </Link>
-                    </span>
-                </div>
-            </div>
+            <nav style={navBar}>
+            <ul style={linkList}>
+                <li style={listItem}>
+                    <Link href="/index">
+                        <a style={linkStyle}>Home</a>
+                    </Link>
+                </li>
+                <li style={listItem}>
+                    <Link href="/monsters">
+                        <a style={linkStyle}>Monsters</a>
+                    </Link>
+                </li>
+                <li style={listItem}>
+                    <Link href="/about">
+                        <a style={linkStyle}>About</a>
+                    </Link>
+                </li>
+            </ul>
+            </nav>
         </div>
     )
 }
